@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -132,6 +133,7 @@ BRAINTREE_MERCHANT_ID ="3j27nwdw8mbvk68y"
 BRAINTREE_PUBLIC_KEY = "64zrsxstnhykn4v2"
 BRAINTREE_PRIVATE_KEY = "5507587264ea632357cad014f69ed78f"
 
+# rest_framework_jwt setting
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -145,7 +147,12 @@ REST_FRAMEWORK = {
     ),
 }
 
-
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+    # 'rest_framework_jwt.utils.jwt_response_payload_handler',
+    'srvup.utils.jwt_response_payload_handler',
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=1),
+}
 
 
 
