@@ -5,6 +5,18 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 
+#1 라우터 페이지 등록
+from rest_framework import routers
+
+from videos.serializers import VideoViewSet
+
+
+#1
+router = routers.DefaultRouter()
+
+#2 우리가 만들 Serializer 등록
+router.register(r"videos", VideoViewSet)
+
 urlpatterns = patterns('',
     # Examples:
     #url(r'^about/$', TemplateView.as_view(template_name='base.html'), name='home'),
@@ -15,7 +27,10 @@ urlpatterns = patterns('',
     url(r'^projects/(?P<cat_slug>[\w-]+)/$', 'videos.views.category_detail', name='project_detail'),
     url(r'^projects/(?P<cat_slug>[\w-]+)/(?P<vid_slug>[\w-]+)/$', 'videos.views.video_detail', name='video_detail'),
     url(r'^dj/admin/', include(admin.site.urls)),
-) 
+
+    #1 여기 URL은 위에서 설정해준 router = router.DefaultRouter() 여기서 오게된다.
+    url(r'^api/', include(router.urls)),
+)
 
 if settings.DEBUG:
     urlpatterns += patterns('',) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
