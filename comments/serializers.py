@@ -11,10 +11,10 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
         fields = [
+            'url',
             'id',
             'parent',
             'user',
-            'video',
             'text'
         ]
 
