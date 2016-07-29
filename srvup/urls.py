@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 
-from videos.serializers import VideoViewSet
+from videos.serializers import VideoViewSet, CategoryViewSet
 
 
 #1
@@ -17,6 +17,7 @@ router = routers.DefaultRouter()
 
 #2 우리가 만들 Serializer 등록
 router.register(r"videos", VideoViewSet)
+router.register(r"categories", CategoryViewSet)
 
 urlpatterns = patterns('',
     # Examples:
