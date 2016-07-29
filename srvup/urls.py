@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 
 #1 라우터 페이지 등록
 from rest_framework import routers
+from rest_framework_jwt.views import obtain_jwt_token
 
 from videos.serializers import VideoViewSet
 
@@ -28,6 +29,8 @@ urlpatterns = patterns('',
     url(r'^projects/(?P<cat_slug>[\w-]+)/(?P<vid_slug>[\w-]+)/$', 'videos.views.video_detail', name='video_detail'),
     url(r'^dj/admin/', include(admin.site.urls)),
 
+    url(r'^api/auth/token/$', obtain_jwt_token),
+    url(r'^api/auth', include('rest_framework.urls', namespace='rest_framework')),
     #1 여기 URL은 위에서 설정해준 router = router.DefaultRouter() 여기서 오게된다.
     url(r'^api/', include(router.urls)),
 )
