@@ -29,7 +29,7 @@ class CommentCreateAPIView(generics.CreateAPIView):
 
 
 
-class CommentDetailAPIView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
+class CommentDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, generics.RetrieveAPIView):
 	queryset = Comment.objects.all()
 	serializer_class = CommentUpdateSerializer
 	permission_classes = [IsOwnerOrReadOnly, ]
@@ -38,6 +38,8 @@ class CommentDetailAPIView(mixins.UpdateModelMixin, generics.RetrieveAPIView):
 	def put(self, request, *args, **kwargs):
 		return self.update(request, *args, **kwargs)
 
+	def delete(self, request, *args, **kwargs):
+		return self.destroy(request, *args, **kwargs)
 
 @login_required
 def comment_thread(request, id):

@@ -70,3 +70,12 @@ curl GET http://127.0.0.1:8000/api2/projects/djangogap/ -H "Authorization: JWT e
 curl GET http://127.0.0.1:8000/api2/projects/djangogap/
 
 {"detail":"Authentication credentials were not provided."}
+
+
+
+curl -X PUT -d "text='Yet Another new good comment'" http://127.0.0.1:8000/api2/comment/120/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImptaXRjaGVsMyIsImV4cCI6MTQ2OTg3ODI4NywidXNlcl9pZCI6MSwiZW1haWwiOiJjb2Rpbmdmb3JlbnRyZXByZW5ldXJzQGdtYWlsLmNvbSJ9.gokLD1acEq-T74JZq2z6a738YV_5PDhlEBFQxs_MyLk"
+
+curl -X DELETE http://127.0.0.1:8000/api2/comment/120/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImptaXRjaGVsMyIsImV4cCI6MTQ2OTg3ODI4NywidXNlcl9pZCI6MSwiZW1haWwiOiJjb2Rpbmdmb3JlbnRyZXByZW5ldXJzQGdtYWlsLmNvbSJ9.gokLD1acEq-T74JZq2z6a738YV_5PDhlEBFQxs_MyLk"
+
+
+curl -X DELETE http://127.0.0.1:8000/api2/comment/122/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImptaXRjaGVsMyIsImV4cCI6MTQ2OTg3ODI4NywidXNlcl9pZCI6MSwiZW1haWwiOiJjb2Rpbmdmb3JlbnRyZXByZW5ldXJzQGdtYWlsLmNvbSJ9.gokLD1acEq-T74JZq2z6a738YV_5PDhlEBFQxs_MyLk"
