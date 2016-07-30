@@ -42,3 +42,31 @@ curl -X POST -d "text=some text like this&user=1&video=http://127.0.0.1:8000/api
 
 {"url":"http://127.0.0.1:8000/api/comment/122/","id":122,"children":[],"video":"http://127.0.0.1:8000/api/videos/24/","user":1,"text":"some text like this"}%
 
+
+#api 2
+
+
+
+
+curl -X POST -d "text=some text like this&user=1&video=http://127.0.0.1:8000/api/videos/24/&parent=135" http://127.0.0.1:8000/api2/projects/djangogap/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0Njk4NjkzNjYsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiam1pdGNoZWwzIiwiZW1haWwiOiJjb2Rpbmdmb3JlbnRyZXByZW5ldXJzQGdtYWlsLmNvbSJ9.WIdFr1JimGtSc8NIJWI5niqqCWOoHpxRJcadxAFMrsY"
+
+{"detail":"Method \"POST\" not allowed."}%
+
+
+curl -X DELETE -d "text=some text like this&user=1&video=http://127.0.0.1:8000/api/videos/24/&parent=135" http://127.0.0.1:8000/api2/projects/djangogap/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0Njk4NjkzNjYsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiam1pdGNoZWwzIiwiZW1haWwiOiJjb2Rpbmdmb3JlbnRyZXByZW5ldXJzQGdtYWlsLmNvbSJ9.WIdFr1JimGtSc8NIJWI5niqqCWOoHpxRJcadxAFMrsY"
+
+{"detail":"Method \"DELETE\" not allowed."}%
+
+curl -X PUT -d "text=some text like this&user=1&video=http://127.0.0.1:8000/api/videos/24/&parent=135" http://127.0.0.1:8000/api2/projects/djangogap/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0Njk4NjkzNjYsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiam1pdGNoZWwzIiwiZW1haWwiOiJjb2Rpbmdmb3JlbnRyZXByZW5ldXJzQGdtYWlsLmNvbSJ9.WIdFr1JimGtSc8NIJWI5niqqCWOoHpxRJcadxAFMrsY"
+
+{"detail":"Method \"PUT\" not allowed."}%
+
+
+
+curl GET http://127.0.0.1:8000/api2/projects/djangogap/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0Njk4NjkzNjYsInVzZXJfaWQiOjEsInVzZXJuYW1lIjoiam1pdGNoZWwzIiwiZW1haWwiOiJjb2Rpbmdmb3JlbnRyZXByZW5ldXJzQGdtYWlsLmNvbSJ9.WIdFr1JimGtSc8NIJWI5niqqCWOoHpxRJcadxAFMrsY"
+
+{"url":"http://127.0.0.1:8000/api2/projects/djangogap/","id":2,"slug":"djangogap","title":"DjangoGap","description":"","image":"http://127.0.0.1:8000/media/images/djangogap.png"}
+
+curl GET http://127.0.0.1:8000/api2/projects/djangogap/
+
+{"detail":"Authentication credentials were not provided."}
