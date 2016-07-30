@@ -19,7 +19,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
 from .models import Video, Category, TaggedItem
-from .serializers import CategorySerializer
+from .serializers import CategorySerializer, VideoSerializer
 
 
 #예시
@@ -31,6 +31,18 @@ from .serializers import CategorySerializer
 	#paginate_by
 	# pass
 
+class VideoDetailAPIView(generics.RetrieveAPIView):
+	queryset = Video.objects.all()
+	serializer_class = VideoSerializer
+
+	def get_object(self):
+		print (self.kwargs)
+		cat_slug = self.kwargs["cat_slug"]
+		vid_slug = self.kwargs["vid_slug"]
+
+		category = get_object_or_404(Category, slug=cat_slug)
+		obj = get_object_or_404(Video, category=category, slug=vid_slug)
+		return obj
 
 
 
@@ -41,6 +53,7 @@ class CategoryListAPIView(generics.ListAPIView):
 	serializer_class = CategorySerializer
 	permission_classess = [permissions.IsAuthenticated, ]
 	paginate_by = 10
+
 
 
 class CategoryDetailAPIView(generics.RetrieveAPIView):
