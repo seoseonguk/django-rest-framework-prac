@@ -22,6 +22,7 @@ router.register(r"categories", CategoryViewSet)
 router.register(r"comment", CommentViewSet)
 
 urlpatterns = patterns('',
+    url(r'^api2/$','srvup.views.api_home',name='api_home'),
     url(r'^api2/comment/$', CommentListAPIView.as_view(), name='comment_list_api'),
     url(r'^api2/comment/create/$', CommentCreateAPIView.as_view(), name='comment_create_api'),
 

@@ -85,5 +85,5 @@ curl -X POST -d "text='Yet Another new good comment'&user=1&parent=125&video=21"
 
 parent=141
 
-curl -X POST -d "text='Yet Another new good comment'&user=1&parent=125&video=21" http://127.0.0.1:8000/api2/comment/create/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNvZGluZ2ZvcmVudHJlcHJlbmV1cnNAZ21haWwuY29tIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJqbWl0Y2hlbDMiLCJleHAiOjE0Njk4NzkwNTV9.l6jp7V75aL8l2dNxIog2MyGY_A-XFNzfd0bR2kT9qHM"
+curl -X POST -d "text='Yet Another new good comment'&user=1&parent=125&video=21" http://127.0.0.1:8000/api2/comment/create/ -H "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImptaXRjaGVsMyIsInVzZXJfaWQiOjEsImVtYWlsIjoiY29kaW5nZm9yZW50cmVwcmVuZXVyc0BnbWFpbC5jb20iLCJleHAiOjE0Njk4ODAwODh9.1nkKr4-rWRHWgfDJtI7d_hLebynnNqf0ZuSTMhvfSaM"
 

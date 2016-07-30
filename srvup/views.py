@@ -5,7 +5,12 @@ from django.db.models import Count
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.utils.safestring import mark_safe
 
+##
+from rest_framework.decorators import api_view
+from rest_framework.response import Response as RestResponse
+from rest_framework.reverse import reverse as api_reverse
 
+##
 
 from accounts.forms import RegisterForm, LoginForm
 from accounts.models import MyUser
@@ -18,11 +23,23 @@ from videos.models import Video, Category
 
 
 
+
 #@login_required(login_url='/enroll/login/')
 #@login_required
 
-
-
+@api_view(["GET"])
+def api_home(request):
+	data = {
+		"projects":{
+			"count":Category.objects.all().count(),
+			"url":api_reverse('category_list_api'),
+		},
+		"comments":{
+			"count":Comment.objects.all().count(),
+			"url":api_reverse('comment_list_api'),
+		}
+	}
+	return RestResponse(data)
 
 
 
@@ -80,12 +97,12 @@ def home(request):
 		register_form = RegisterForm()
 		template = "accounts/home_visitor.html"
 		context = {
-			"register_form": register_form, 
-			"login_form": login_form, 
+			"register_form": register_form,
+			"login_form": login_form,
 			"featured_videos":featured_videos,
 			"featured_categories": featured_categories,
 		}
-	
+
 	return render(request,template,context)
 
 
@@ -93,7 +110,7 @@ def home(request):
 
 # def home(request):
 # 	if request.user.is_authenticated():
-# 		print 
+# 		print
 # 		name = "Justin"
 # 		videos = Video.objects.all()
 # 		embeds = []
@@ -119,7 +136,7 @@ def home(request):
 @login_required(login_url='/staff/login/')
 def staff_home(request):
 	context = {
-		
+
 	}
 	return render(request, "home.html", context)
 
