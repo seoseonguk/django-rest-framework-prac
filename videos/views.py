@@ -10,17 +10,47 @@ from analytics.signals import page_view
 from comments.forms import CommentForm
 from comments.models import Comment
 
+from rest_framework import generics
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework import permissions
+
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 
 
 from .models import Video, Category, TaggedItem
+from .serializers import CategorySerializer
+
+
+#예시
+# class CategoryListAPIView(generics.ListAPIView):
+	#authentication_classess
+	#queryset
+	#serializer_class
+	#permission_classes
+	#paginate_by
+	# pass
+
+
+
+
+
+class CategoryListAPIView(generics.ListAPIView):
+	authentication_classess = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
+	queryset = Category.objects.all()
+	serializer_class = CategorySerializer
+	permission_classess = [permissions.IsAuthenticated, ]
+	paginate_by = 10
+
+
 
 
 #@login_required
 def video_detail(request, cat_slug, vid_slug):
 	cat = get_object_or_404(Category, slug=cat_slug)
 	obj = get_object_or_404(Video, slug=vid_slug, category=cat)
-	page_view.send(request.user, 
-				page_path=request.get_full_path(), 
+	page_view.send(request.user,
+				page_path=request.get_full_path(),
 				primary_obj=obj,
 				secondary_obj=cat)
 	if request.user.is_authenticated() or obj.has_preview:
@@ -33,8 +63,8 @@ def video_detail(request, cat_slug, vid_slug):
 			for c in comments:
 				c.get_children()
 			comment_form = CommentForm()
-			context = {"obj": obj, 
-				"comments":comments, 
+			context = {"obj": obj,
+				"comments":comments,
 				"comment_form": comment_form}
 			return render(request, "videos/video_detail.html", context)
 		else:
@@ -62,8 +92,8 @@ def category_list(request):
 def category_detail(request, cat_slug):
 	obj = get_object_or_404(Category, slug=cat_slug)
 	queryset = obj.video_set.all()
-	page_view.send(request.user, 
-				page_path=request.get_full_path(), 
+	page_view.send(request.user,
+				page_path=request.get_full_path(),
 				primary_obj=obj)
 
 
