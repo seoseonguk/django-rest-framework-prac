@@ -149,9 +149,8 @@ REST_FRAMEWORK = {
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER':
-    # 'rest_framework_jwt.utils.jwt_response_payload_handler',
-    'srvup.utils.jwt_response_payload_handler',
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=1),
+        'srvup.utils.jwt_response_payload_handler',
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(seconds=300000),
 }
 
 

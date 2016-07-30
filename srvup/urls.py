@@ -33,7 +33,7 @@ urlpatterns = patterns('',
     url(r'^dj/admin/', include(admin.site.urls)),
 
     url(r'^api/auth/token/$', obtain_jwt_token),
-    url(r'^api/auth', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/auth/', include('rest_framework.urls', namespace='rest_framework')),
     #1 여기 URL은 위에서 설정해준 router = router.DefaultRouter() 여기서 오게된다.
     url(r'^api/', include(router.urls)),
 )
