@@ -8,6 +8,18 @@ from .models import Comment
 
 User = get_user_model()
 
+
+
+class CommentCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = [
+            'text',
+            'user',
+            'video',
+        ]
+
+
 class ChildCommentSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
@@ -20,6 +32,8 @@ class ChildCommentSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField("comment_detail_api", lookup_field="id")
+    # 편한 방법
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     children = serializers.SerializerMethodField(read_only=True)
 

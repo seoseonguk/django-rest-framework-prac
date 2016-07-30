@@ -1,9 +1,9 @@
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, Http404, HttpResponseRedirect, get_object_or_404
 
 # Create your views here.
+from rest_framework import generics, mixins
 
 from notifications.signals import notify
 
@@ -11,6 +11,17 @@ from videos.models import Video
 
 from .models import Comment
 from .forms import CommentForm
+from .serializers import CommentCreateSerializer, CommentSerializer
+
+
+class CommentCreateAPIView(generics.CreateAPIView):
+	serializer_class = CommentCreateSerializer
+
+
+class CommentDetailAPIView(generics.RetrieveAPIView):
+	queryset = Comment.objects.all()
+	serializer_class = CommentSerializer
+	lookup_field = "id"
 
 
 @login_required
@@ -51,17 +62,17 @@ def comment_create_view(request):
 			if parent_comment is not None:
 				# parent comments exists
 				new_comment = Comment.objects.create_comment(
-					user=request.user, 
-					path=parent_comment.get_origin, 
+					user=request.user,
+					path=parent_comment.get_origin,
 					text=comment_text,
 					video = video,
 					parent=parent_comment
 					)
 				affected_users = parent_comment.get_affected_users()
 				notify.send(
-						request.user, 
-						action=new_comment, 
-						target=parent_comment, 
+						request.user,
+						action=new_comment,
+						target=parent_comment,
 						recipient=parent_comment.user,
 						affected_users = affected_users,
 						verb='replied to')
@@ -69,16 +80,16 @@ def comment_create_view(request):
 				return HttpResponseRedirect(parent_comment.get_absolute_url())
 			else:
 				new_comment = Comment.objects.create_comment(
-					user=request.user, 
-					path=origin_path, 
+					user=request.user,
+					path=origin_path,
 					text=comment_text,
 					video = video
 					)
 				# option to send to super user or staff users
 				# notify.send(
-				# 		request.user, 
-				# 		recipient = request.user, 
-				# 		action=new_comment, 
+				# 		request.user,
+				# 		recipient = request.user,
+				# 		action=new_comment,
 				# 		target = new_comment.video,
 				# 		verb='commented on')
 				#notify.send(request.user, recipient=request.user, action='New comment added')

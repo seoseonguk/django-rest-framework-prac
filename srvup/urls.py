@@ -12,7 +12,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 from comments.serializers import CommentViewSet
 from videos.serializers import VideoViewSet, CategoryViewSet
 from videos.views import CategoryListAPIView, CategoryDetailAPIView, VideoDetailAPIView
-
+from comments.views import CommentCreateAPIView, CommentDetailAPIView
 #1
 router = routers.DefaultRouter()
 
@@ -22,6 +22,8 @@ router.register(r"categories", CategoryViewSet)
 router.register(r"comment", CommentViewSet)
 
 urlpatterns = patterns('',
+    url(r'^api2/comment/create/$', CommentCreateAPIView.as_view(), name='comment_create_api'),
+    url(r'^api2/comment/(?P<id>\d+)/$', CommentDetailAPIView.as_view(), name='comment_detail_api'),
     url(r'^api2/projects/$', CategoryListAPIView.as_view(), name='category_list_api'),
     url(r'^api2/projects/(?P<slug>[\w-]+)/$', CategoryDetailAPIView.as_view(), name='category_detail_api'),
     url(r'^api2/projects/(?P<cat_slug>[\w-]+)/(?P<vid_slug>[\w-]+)/$', VideoDetailAPIView.as_view(), name='video_detail_api'),

@@ -24,6 +24,7 @@ class VideoUrlHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
 class VideoSerializer(serializers.HyperlinkedModelSerializer):
     url = VideoUrlHyperlinkedIdentityField('video_detail_api')
     # category = CategorySerializer(many=False, read_only=True)
+    comment_set = CommentSerializer(many=True, read_only=True)
     category_url = serializers.CharField(source='category.get_absolute_url', read_only=True)
     #  미리 정의된 method가 있어야한다.
     # category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
@@ -65,7 +66,9 @@ class CategoryUrlHyperlinkedIdentityField(serializers.HyperlinkedIdentityField):
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
-    url = CategoryUrlHyperlinkedIdentityField(view_name='category_detail_api')
+    # url = CategoryUrlHyperlinkedIdentityField(view_name='category_detail_api')
+    url = CategoryUrlHyperlinkedIdentityField('category_detail_api', lookup_field='slug')
+
     video_set = VideoSerializer(many=True, read_only=True)
     class Meta:
         model = Category
