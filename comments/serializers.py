@@ -9,6 +9,16 @@ from .models import Comment
 User = get_user_model()
 
 
+class CommentUpdateSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source='user.username', read_only=True)
+    class Meta:
+        model = Comment
+        fields = [
+            'id',
+            'user',
+            'text',
+        ]
+
 
 class CommentCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,7 +31,8 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
 
 class ChildCommentSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    # user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    user = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = Comment
         fields = [
@@ -33,8 +44,9 @@ class ChildCommentSerializer(serializers.HyperlinkedModelSerializer):
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField("comment_detail_api", lookup_field="id")
-    # 편한 방법
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    # 편한 방
+    # user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    user = serializers.CharField(source='user.username', read_only=True)
     children = serializers.SerializerMethodField(read_only=True)
 
     def get_children(self, instance):
