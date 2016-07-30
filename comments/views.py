@@ -30,10 +30,16 @@ class CommentCreateAPIView(generics.CreateAPIView):
 
 
 class CommentDetailAPIView(mixins.DestroyModelMixin, mixins.UpdateModelMixin, generics.RetrieveAPIView):
-	queryset = Comment.objects.all()
+	# queryset = Comment.objects.all()
 	serializer_class = CommentUpdateSerializer
 	permission_classes = [IsOwnerOrReadOnly, ]
 	lookup_field = "id"
+
+	def get_queryset(self, *args, **kwargs):
+		queryset = Comment.objects.filter(pk__gte=0)
+		return queryset
+		# 기존 모델에서 all을 다시 정의했기때문에 이런식으로 해야함.
+		# queryset, get_queryset 중에 하나만 설정하면 된다.
 
 	def put(self, request, *args, **kwargs):
 		return self.update(request, *args, **kwargs)
