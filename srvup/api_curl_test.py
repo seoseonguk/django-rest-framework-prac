@@ -84,3 +84,6 @@ curl -X DELETE http://127.0.0.1:8000/api2/comment/122/ -H "Authorization: JWT ey
 curl -X POST -d "text='Yet Another new good comment'&user=1&parent=125&video=21" http://127.0.0.1:8000/api2/comment/create/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNvZGluZ2ZvcmVudHJlcHJlbmV1cnNAZ21haWwuY29tIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJqbWl0Y2hlbDMiLCJleHAiOjE0Njk4NzkwNTV9.l6jp7V75aL8l2dNxIog2MyGY_A-XFNzfd0bR2kT9qHM"
 
 parent=141
+
+curl -X POST -d "text='Yet Another new good comment'&user=1&parent=125&video=21" http://127.0.0.1:8000/api2/comment/create/ -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNvZGluZ2ZvcmVudHJlcHJlbmV1cnNAZ21haWwuY29tIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJqbWl0Y2hlbDMiLCJleHAiOjE0Njk4NzkwNTV9.l6jp7V75aL8l2dNxIog2MyGY_A-XFNzfd0bR2kT9qHM"
+
