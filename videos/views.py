@@ -34,7 +34,7 @@ from .serializers import CategorySerializer
 
 
 
-
+# 반복이 많아서, Mixin으로 처리할 수 있다.
 class CategoryListAPIView(generics.ListAPIView):
 	authentication_classess = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
 	queryset = Category.objects.all()
@@ -43,6 +43,17 @@ class CategoryListAPIView(generics.ListAPIView):
 	paginate_by = 10
 
 
+class CategoryDetailAPIView(generics.RetrieveAPIView):
+	authentication_classess = [SessionAuthentication, BasicAuthentication, JSONWebTokenAuthentication]
+	queryset = Category.objects.all()
+	serializer_class = CategorySerializer
+	permission_classess = [permissions.IsAuthenticated, ]
+
+	def get_object(self):
+		print (self.kwargs)
+		slug = self.kwargs["slug"]
+		obj = get_object_or_404(Category, slug=slug)
+		return obj
 
 
 #@login_required

@@ -11,7 +11,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 from comments.serializers import CommentViewSet
 from videos.serializers import VideoViewSet, CategoryViewSet
-from videos.views import CategoryListAPIView
+from videos.views import CategoryListAPIView, CategoryDetailAPIView
 
 #1
 router = routers.DefaultRouter()
@@ -22,7 +22,9 @@ router.register(r"categories", CategoryViewSet)
 router.register(r"comment", CommentViewSet)
 
 urlpatterns = patterns('',
-    url(r'^api2/projects/', CategoryListAPIView.as_view(), name='category_list_api'),
+    url(r'^api2/projects/$', CategoryListAPIView.as_view(), name='category_list_api'),
+    url(r'^api2/projects/(?P<slug>[\w-]+)/', CategoryDetailAPIView.as_view(), name='category_detail_api'),
+
     # Examples:
     #url(r'^about/$', TemplateView.as_view(template_name='base.html'), name='home'),
     #url(r'^pricing/$', TemplateView.as_view(template_name='base.html'), name='home'),
