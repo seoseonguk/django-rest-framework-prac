@@ -27,6 +27,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
             'text',
             'user',
             'video',
+            'parent',
         ]
 
 
